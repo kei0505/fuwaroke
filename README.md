@@ -3,4 +3,5 @@
 
 tests
 
-aiueo
+あいうえお
+
