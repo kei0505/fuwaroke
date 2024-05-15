@@ -1,3 +1,3 @@
 <?php
-echo "テストだよ"
+echo "テストだyooooooooo"
 ?>
