@@ -1,47 +1,40 @@
 <?php
-require 'db.php';
 session_start();
-
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header("Location: login.php");
     exit;
 }
 
-// 全体掲示板のIDを取得
-$stmt = $conn->prepare("SELECT id FROM boards WHERE post_title = '全体'");
-$stmt->execute();
-$board = $stmt->fetch(PDO::FETCH_ASSOC);
-$board_id = $board['id'];
-
-// 全体掲示板の投稿を取得
-$posts = $conn->prepare("SELECT posts.*, users.name FROM posts JOIN users ON posts.user_id = users.id WHERE posts.board_id = :board_id ORDER BY posts.created_at DESC");
-$posts->bindParam(':board_id', $board_id);
-$posts->execute();
-$posts = $posts->fetchAll(PDO::FETCH_ASSOC);
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $comment = $_POST['comment'];
-    $user_id = $_SESSION['user_id'];
-
-    $stmt = $conn->prepare("INSERT INTO posts (board_id, user_id, comment) VALUES (:board_id, :user_id, :comment)");
-    $stmt->bindParam(':board_id', $board_id);
-    $stmt->bindParam(':user_id', $user_id);
-    $stmt->bindParam(':comment', $comment);
-    $stmt->execute();
-
-    header('Location: home.php');
-    exit;
-}
+include('db.php');
 ?>
 
-<h2>全体掲示板</h2>
-<?php foreach ($posts as $post): ?>
-    <div>
-        <p><strong><?php echo htmlspecialchars($post['name']); ?>:</strong> <?php echo htmlspecialchars($post['t_post']); ?></p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ホーム</title>
+</head>
+<body>
+    <?php include('header.php'); ?>
+    <?php include('sidebar.php'); ?>
+    <div class="content">
+        <h1>ホーム</h1>
+        <p>全体チャット掲示板</p>
+        <?php
+        $sql = "SELECT * FROM post ORDER BY t_create_time DESC";
+        $result = $conn->query($sql);
+        if ($result === FALSE) {
+            echo "Error: " . $conn->error;
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='post'>";
+                echo "<h2>" . htmlspecialchars($row['post_title']) . "</h2>";
+                echo "<p>投稿者: " . htmlspecialchars($row['user_id']) . "</p>";
+                echo "<p>作成日時: " . htmlspecialchars($row['t_create_time']) . "</p>";
+                echo "</div>";
+            }
+        }
+        ?>
     </div>
-<?php endforeach; ?>
-
-<form method="post">
-    <textarea name="comment" required></textarea><br>
-    <button type="submit">投稿</button>
-</form>
+</body>
+</html>
