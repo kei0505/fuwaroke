@@ -42,185 +42,119 @@ $portfolio = htmlspecialchars($row['portfolio'] ?? '', ENT_QUOTES, 'UTF-8');
 ?>
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-<link rel="icon" href="image/favicon.ico">
-<meta charset="UTF-8">
-<title>ユーザーページ</title>
-<link rel="stylesheet" href="css/mypage.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-   .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        margin-top: 20px;
-        font-size: 14px;
-        font-family: 'Montserrat', sans-serif;
-        color: #fff;
-        background-color: #007bff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        margin: 10px;
-        transition: background-color 0.3s ease;
-    }
+    <link rel="icon" href="image/favicon.ico">
+    <meta charset="UTF-8">
+    <title>ユーザーページ</title>
+    <link rel="stylesheet" href="css/mypage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin: 40px;
+            transition: background-color 0.3s ease;
+        }
 
-    .btn:hover {
-        background-color: #0056b3;
-    }
+        .btn:hover {
+            background-color: #0056b3;
+        }
 
-    .toggle-btn {
-        display: block;
-        margin: 20px auto;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-family: 'Montserrat', sans-serif;
-        color: #007bff;
-        background-color: transparent;
-        border: 2px solid #007bff;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
+        .toggle-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            color: #007bff;
+            background-color: transparent;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    .toggle-btn:hover {
-        background-color: #007bff;
-        color: #fff;
-    }
+        .toggle-btn:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
 
-    .desc-content {
-        word-break: break-word;
-    }
-</style>
-<script>
-function togglePosts(section) {
-    var moreText = document.getElementById("more" + section);
-    var moreButton = document.getElementById("moreBtn" + section);
+        .desc {
+            width: 500px;
+        }
 
-    if (moreText.style.display === "none") {
-        moreText.style.display = "block";
-        moreButton.textContent = "閉じる";
-    } else {
-        moreText.style.display = "none";
-        moreButton.textContent = "もっと見る";
-    }
-}
-</script>
+        .desc-content {
+            word-break: break-word;
+        }
+    </style>
+    <script>
+        function togglePosts(section) {
+            var moreText = document.getElementById("more" + section);
+            var moreButton = document.getElementById("moreBtn" + section);
+
+            if (moreText.style.display === "none") {
+                moreText.style.display = "block";
+                moreButton.textContent = "閉じる";
+            } else {
+                moreText.style.display = "none";
+                moreButton.textContent = "もっと見る";
+            }
+        }
+    </script>
 </head>
+
 <body>
-<?php require 'side.php'; ?>
-<?php require 'right.php'; ?>
-<div class="container">
-    <div class="content">
-        <div class="profile">
-            <h1>Profile</h1>
-            <div class="photo-left">
-                <form id="profileImageForm" action="view.php" method="post" enctype="multipart/form-data">
-                   
-                    <img class="photo" src="<?php echo $icon; ?>" alt="プロフィール画像" id="profileImage" onclick="document.getElementById('profileImageInput').click();">
-                </form>
-                <br>
-                <h2 class="name"><?php echo $user_name; ?></h2>
-                <div class="desc">
-                    <div class="desc-title">学校名</div>
+    <?php require 'side.php'; ?>
+    <?php require 'right.php'; ?>
+    <div class="container">
+        <div class="content">
+            <div class="profile">
+                <h1>Profile</h1>
+                <div class="photo-left">
+                    <form id="profileImageForm" action="view.php" method="post" enctype="multipart/form-data">
+
+                        <img class="photo" src="<?php echo $icon; ?>" alt="プロフィール画像" id="profileImage" onclick="document.getElementById('profileImageInput').click();">
+                    </form>
                     <br>
-                    <p class="desc-content"><?php echo $school_name; ?></p>
-                    <div class="desc-title">自己紹介</div>
-                    <br>
-                    <p class="desc-content"><?php echo nl2br($introduction); ?></p>
-                    <div class="desc-title">ポートフォリオ</div>
-                    <br>
-                    <p class="desc-content"><?php echo nl2br($portfolio); ?></p>
-                </div>
-                <a href="home.php" class="btn">ホームに戻る</a>
-                <div class="social">
-                    <a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
-                    <a href="https://twitter.com/"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://www.github.com/"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <h2 class="name"><?php echo $user_name; ?></h2>
+                    <div class="desc">
+                        <div class="desc-title">学校名</div>
+                        <br>
+                        <p class="desc-content"><?php echo $school_name; ?></p>
+                        <div class="desc-title">自己紹介</div>
+                        <br>
+                        <p class="desc-content"><?php echo nl2br($introduction); ?></p>
+                        <div class="desc-title">ポートフォリオ</div>
+                        <br>
+                        <p class="desc-content"><?php echo nl2br($portfolio); ?></p>
+                    </div>
+                    <a href="home.php" class="btn">ホームに戻る</a>
+                    <div class="social">
+                        <a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://www.github.com/"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
+
+
         </div>
-
-        <?php
-      
-        $post_sql = $pdo->prepare('
-            SELECT post.post_id, post.post_title, user.user_name, category.cate_name, post.t_create_time
-            FROM post
-            JOIN user ON post.user_id = user.user_id
-            JOIN category ON post.cate_id = category.cate_id
-            WHERE post.user_id = ?');
-        $post_sql->execute([$user_id]);
-        $posts = $post_sql->fetchAll(PDO::FETCH_ASSOC);
-
-        if ($posts) {
-            echo '<div class="posts"><h3>掲示板作成履歴</h3>';
-            foreach ($posts as $index => $post) {
-                $displayStyle = $index < 3 ? 'block' : 'none';
-                echo '<div class="post-item" style="display: ' . $displayStyle . ';">';
-                echo '<a href="index.php?post_id=' . htmlspecialchars($post['post_id'], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($post['post_title'], ENT_QUOTES, 'UTF-8') . '</a>';
-                echo '<div class="post-meta">投稿者: ' . htmlspecialchars($post['user_name'], ENT_QUOTES, 'UTF-8') . ' | カテゴリー: ' . htmlspecialchars($post['cate_name'], ENT_QUOTES, 'UTF-8') . ' | 投稿日: ' . htmlspecialchars($post['t_create_time'], ENT_QUOTES, 'UTF-8') . '</div>';
-                echo '</div>';
-            }
-            if (count($posts) > 3) {
-                echo '<div id="morepost" style="display: none;">';
-                foreach ($posts as $index => $post) {
-                    if ($index >= 3) {
-                        echo '<div class="post-item">';
-                        echo '<a href="index.php?post_id=' . htmlspecialchars($post['post_id'], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($post['post_title'], ENT_QUOTES, 'UTF-8') . '</a>';
-                        echo '<div class="post-meta">作成者: ' . htmlspecialchars($post['user_name'], ENT_QUOTES, 'UTF-8') . ' | カテゴリー: ' . htmlspecialchars($post['cate_name'], ENT_QUOTES, 'UTF-8') . ' | 作成日: ' . htmlspecialchars($post['t_create_time'], ENT_QUOTES, 'UTF-8') . '</div>';
-                        echo '</div>';
-                    }
-                }
-                echo '</div>';
-                echo '<button id="moreBtnpost" class="toggle-btn" onclick="togglePosts(\'post\')">もっと見る</button>';
-            }
-            echo '</div>';
-        } else {
-            echo '<br><p class="error-message">掲示板の作成履歴がありません</p>';
-        }
-        $comment_sql = $pdo->prepare('
-            SELECT DISTINCT post.post_id, post.post_title, user.user_name, category.cate_name, post.t_create_time
-            FROM t_rireki
-            JOIN post ON t_rireki.post_id = post.post_id
-            JOIN user ON post.user_id = user.user_id
-            JOIN category ON post.cate_id = category.cate_id
-            WHERE t_rireki.user_id = ?');
-        $comment_sql->execute([$user_id]);
-        $commented_posts = $comment_sql->fetchAll(PDO::FETCH_ASSOC);
-
-        if ($commented_posts) {
-            echo '<div class="posts"><h3>コメントしたことがある掲示板</h3>';
-            foreach ($commented_posts as $index => $post) {
-                $displayStyle = $index < 3 ? 'block' : 'none';
-                echo '<div class="post-item" style="display: ' . $displayStyle . ';">';
-                echo '<a href="index.php?post_id=' . htmlspecialchars($post['post_id'], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($post['post_title'], ENT_QUOTES, 'UTF-8') . '</a>';
-                echo '<div class="post-meta">作成者: ' . htmlspecialchars($post['user_name'], ENT_QUOTES, 'UTF-8') . ' | カテゴリー: ' . htmlspecialchars($post['cate_name'], ENT_QUOTES, 'UTF-8') . ' | 作成日: ' . htmlspecialchars($post['t_create_time'], ENT_QUOTES, 'UTF-8') . '</div>';
-                echo '</div>';
-            }
-            if (count($commented_posts) > 3) {
-                echo '<div id="morecommented" style="display: none;">';
-                foreach ($commented_posts as $index => $post) {
-                    if ($index >= 3) {
-                        echo '<div class="post-item">';
-                        echo '<a href="index.php?post_id=' . htmlspecialchars($post['post_id'], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($post['post_title'], ENT_QUOTES, 'UTF-8') . '</a>';
-                        echo '<div class="post-meta">作成者: ' . htmlspecialchars($post['user_name'], ENT_QUOTES, 'UTF-8') . ' | カテゴリー: ' . htmlspecialchars($post['cate_name'], ENT_QUOTES, 'UTF-8') . ' | 作成日: ' . htmlspecialchars($post['t_create_time'], ENT_QUOTES, 'UTF-8') . '</div>';
-                        echo '</div>';
-                    }
-                }
-                echo '</div>';
-                echo '<button id="moreBtncommented" class="toggle-btn" onclick="togglePosts(\'commented\')">もっと見る</button>';
-            }
-            echo '</div>';
-        } else {
-            echo '<br><p class="error-message">コメントしたことがある掲示板はありません</p>';
-        }
-        ?>
     </div>
-</div>
 </body>
+
 </html>
