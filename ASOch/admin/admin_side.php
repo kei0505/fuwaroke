@@ -12,5 +12,8 @@
          <li>
              <h2 class="side-h2"><a href="category_show.php">カテゴリー<wbr>リスト</a></h2>
          </li>
+         <!-- <li>
+             <h2 class="side-h2"><a href="question_show.php">質問箱<wbr>リスト</a></h2>
+         </li> -->
      </ul>
  </div>

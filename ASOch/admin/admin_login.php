@@ -6,17 +6,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userid = $_POST['userid'];
     $password = $_POST['password'];
 
-    $stmt = $pdo->prepare('SELECT * FROM user WHERE user_id = ?');
-    $stmt->execute([$userid]);
-    $user = $stmt->fetch();
+    // IDが「0000」のユーザーのみログインを許可
+    if ($userid === '2201205' || '5555555') {
+        $stmt = $pdo->prepare('SELECT * FROM user WHERE user_id = ?');
+        $stmt->execute([$userid]);
+        $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['user_name'] = $user['user_name'];
-        header("Location: admin.php");
-        exit();
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['user_name'] = $user['user_name'];
+            header("Location: admin.php");
+            exit();
+        } else {
+            $error = "ユーザー名またはパスワードが違います。";
+        }
     } else {
-        $error = "ユーザー名またはパスワードが違います。";
+        $error = "このユーザーIDではログインできません。";
     }
 }
 ?>
