@@ -113,16 +113,7 @@ if (session_status() == PHP_SESSION_NONE) {
 </div>
 
         
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <nav class="nav-menu" id="navMenu">
-            <a href="#">ホーム</a>
-            <a href="#">サービス</a>
-            <a href="#">お問い合わせ</a>
-            <a href="#">その他</a>
+        
         </nav>
     </header>
     <script>

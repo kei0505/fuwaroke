@@ -57,10 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         
         </script>
-<?php require 'header.php'; ?>
+
     <meta charset="UTF-8">
     <title>新規登録</title>
 </head>
+<?php require 'header.php'; ?>
 <body>
 <link rel="stylesheet" href="css/touroku.css">
 <div class="touroku1-container">
@@ -73,8 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             ?>
             <label class="form-label">
+            <span style="color: red;" >*</span>必須<br>
             <span style="opacity: 0.5;">(ログイン後、<u style="color: blue"><span style="color: red;">学籍番号以外</span></u>をマイページから変更できます。)</span><br>
-            <span style="color: red;" >*</span>必須
             </label>
 
             <label for="user_id" class="form-label">学籍番号<span style="color: red;">*</span></label>

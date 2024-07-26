@@ -5,7 +5,7 @@ if(empty($_SERVER["HTTP_REFERER"])){
     exit();
 }
 ?>
-<?php require 'header.php'; ?>
+
 <?php
     $user_id = $_SESSION['user_id'];
     $password = $_SESSION['password'];
@@ -18,6 +18,7 @@ if(empty($_SERVER["HTTP_REFERER"])){
     <title>新規登録</title>
 </head>
 <body>
+<?php require 'header.php'; ?>
 <?php
     $user_name = $school_id = $introduction =$portfolio =$icon= '';
 
@@ -48,7 +49,7 @@ if(empty($_SERVER["HTTP_REFERER"])){
 
     echo '<label>';
     echo '<span class="form-label">自己紹介</span>';
-    echo '<textarea name="introduction" class="input-field" placeholder="(趣味・特技、学んでいること・取得検定、就活状況など、1000文字以内)" rows="5" cols="50" maxlength="1000"></textarea>';
+    echo '<textarea name="introduction" class="input-field" placeholder="(趣味・特技、学んでいること・取得検定・就活状況など、1000文字以内)" rows="5" cols="50" maxlength="1000"></textarea>';
     echo '</label>';
 
     echo '<label>';
